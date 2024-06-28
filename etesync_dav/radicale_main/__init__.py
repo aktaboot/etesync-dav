@@ -37,7 +37,7 @@ from radicale import VERSION, config, log, server, storage, types
 from radicale.log import logger
 
 
-def run() -> None:
+def run(passed_args) -> None:
     """Run Radicale as a standalone server."""
     exit_signal_numbers = [signal.SIGTERM, signal.SIGINT]
     if sys.platform == "win32":
@@ -112,7 +112,7 @@ def run() -> None:
                 del kwargs["type"]
                 group.add_argument(*args, **kwargs)
 
-    args_ns, remaining_args = parser.parse_known_args()
+    args_ns, remaining_args = parser.parse_known_args(args=passed_args)
     unrecognized_args = []
     while remaining_args:
         arg = remaining_args.pop(0)
